@@ -54,6 +54,16 @@ if (Test-Path "src\your_package") {
     Rename-Item "src\your_package" "src\$PackageName"
 }
 
+# Clean up any cached/generated files before customization
+Write-Host "Cleaning up cached files..." -ForegroundColor Blue
+Get-ChildItem -Path . -Recurse -Name "__pycache__" -Directory | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+Get-ChildItem -Path . -Recurse -Name "*.pyc" | Remove-Item -Force -ErrorAction SilentlyContinue
+Get-ChildItem -Path . -Recurse -Name "*.pyo" | Remove-Item -Force -ErrorAction SilentlyContinue
+Get-ChildItem -Path . -Name ".coverage" | Remove-Item -Force -ErrorAction SilentlyContinue
+@(".pytest_cache", "htmlcov", ".tox", ".mypy_cache") | ForEach-Object { 
+    if (Test-Path $_) { Remove-Item $_ -Recurse -Force -ErrorAction SilentlyContinue }
+}
+
 # Function to update file content
 function Update-FileContent {
     param($FilePath, $Replacements)
@@ -153,6 +163,11 @@ try {
 if (-not (Test-Path ".git")) {
     Write-Host "`nInitializing git repository..." -ForegroundColor Blue
     git init
+    
+    # Final cleanup before initial commit
+    Get-ChildItem -Path . -Recurse -Name "__pycache__" -Directory | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+    Get-ChildItem -Path . -Recurse -Name "*.pyc" | Remove-Item -Force -ErrorAction SilentlyContinue
+    
     git add .
     git commit -m "Initial commit: Secure Python project template
 

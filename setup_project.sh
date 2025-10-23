@@ -50,6 +50,14 @@ if [ -d "src/your_package" ]; then
     mv "src/your_package" "src/$PACKAGE_NAME"
 fi
 
+# Clean up any cached/generated files before customization
+echo "Cleaning up cached files..."
+find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+find . -name "*.pyc" -delete 2>/dev/null || true
+find . -name "*.pyo" -delete 2>/dev/null || true
+find . -name ".coverage" -delete 2>/dev/null || true
+rm -rf .pytest_cache/ htmlcov/ .tox/ .mypy_cache/ 2>/dev/null || true
+
 # Update pyproject.toml
 if [ -f "pyproject.toml" ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -191,8 +199,13 @@ pre-commit run --all-files || echo -e "${YELLOW}  Some pre-commit checks failed,
 
 # Initialize git repository if not already initialized
 if [ ! -d ".git" ]; then
-    echo -e "\n${BLUE} IInitializing git repository...${NC}"
+    echo -e "\n${BLUE}Initializing git repository...${NC}"
     git init
+    
+    # Final cleanup before initial commit
+    find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+    find . -name "*.pyc" -delete 2>/dev/null || true
+    
     git add .
     git commit -m "Initial commit: Secure Python project template
 
