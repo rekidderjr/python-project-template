@@ -72,6 +72,8 @@ cd your-project-name
 Click **"Use this template"** on GitHub to create your new repository.
 
 ### 2. Customize Your Project
+
+**Unix/Linux/macOS:**
 ```bash
 # Clone and setup
 git clone https://github.com/yourusername/your-new-project.git
@@ -81,7 +83,19 @@ cd your-new-project
 ./setup_project.sh
 ```
 
+**Windows (PowerShell):**
+```powershell
+# Clone and setup
+git clone https://github.com/yourusername/your-new-project.git
+cd your-new-project
+
+# Run setup script (customizes all placeholders)
+.\setup_project.ps1
+```
+
 ### 3. Start Developing
+
+**Unix/Linux/macOS:**
 ```bash
 # Activate virtual environment (created by setup script)
 source venv/bin/activate
@@ -90,6 +104,17 @@ source venv/bin/activate
 # Write tests in tests/
 # Run quality checks
 ./customer-compliance-check.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+# Activate virtual environment (created by setup script)
+venv\Scripts\Activate.ps1
+
+# Start coding in src\your_package\
+# Write tests in tests\
+# Run quality checks
+.\customer-compliance-check.sh
 ```
 
 ## Project Structure
@@ -113,7 +138,8 @@ your-project/
 ├── .gitignore                # Git ignore rules
 ├── CODE_QUALITY_STANDARDS.md # Quality standards
 ├── customer-compliance-check.sh # Compliance script
-└── setup_project.sh          # Template customization
+├── setup_project.sh          # Template customization (Unix/Linux/macOS)
+├── setup_project.ps1         # Template customization (Windows)
 ```
 
 ## Security Features

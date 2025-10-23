@@ -52,50 +52,97 @@ fi
 
 # Update pyproject.toml
 if [ -f "pyproject.toml" ]; then
-    sed -i.bak "s/your-project-name/$PROJECT_NAME/g" pyproject.toml
-    sed -i.bak "s/Your Name/$AUTHOR_NAME/g" pyproject.toml
-    sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" pyproject.toml
-    sed -i.bak "s/yourusername/$GITHUB_USERNAME/g" pyproject.toml
-    rm pyproject.toml.bak
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/your-project-name/$PROJECT_NAME/g" pyproject.toml
+        sed -i.bak "s/Your Name/$AUTHOR_NAME/g" pyproject.toml
+        sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" pyproject.toml
+        sed -i.bak "s/yourusername/$GITHUB_USERNAME/g" pyproject.toml
+        rm pyproject.toml.bak
+    else
+        # Linux
+        sed -i "s/your-project-name/$PROJECT_NAME/g" pyproject.toml
+        sed -i "s/Your Name/$AUTHOR_NAME/g" pyproject.toml
+        sed -i "s/your.email@example.com/$AUTHOR_EMAIL/g" pyproject.toml
+        sed -i "s/yourusername/$GITHUB_USERNAME/g" pyproject.toml
+    fi
 fi
 
 # Update setup.cfg
 if [ -f "setup.cfg" ]; then
-    sed -i.bak "s/your-project-name/$PROJECT_NAME/g" setup.cfg
-    sed -i.bak "s/Your Name/$AUTHOR_NAME/g" setup.cfg
-    sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" setup.cfg
-    rm setup.cfg.bak
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/your-project-name/$PROJECT_NAME/g" setup.cfg
+        sed -i.bak "s/Your Name/$AUTHOR_NAME/g" setup.cfg
+        sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" setup.cfg
+        rm setup.cfg.bak
+    else
+        # Linux
+        sed -i "s/your-project-name/$PROJECT_NAME/g" setup.cfg
+        sed -i "s/Your Name/$AUTHOR_NAME/g" setup.cfg
+        sed -i "s/your.email@example.com/$AUTHOR_EMAIL/g" setup.cfg
+    fi
 fi
 
 # Update README.md
 if [ -f "README.md" ]; then
-    sed -i.bak "s/Project Name/$PROJECT_NAME/g" README.md
-    sed -i.bak "s/yourusername/$GITHUB_USERNAME/g" README.md
-    sed -i.bak "s/your-project-name/$PROJECT_NAME/g" README.md
-    sed -i.bak "s/your_package/$PACKAGE_NAME/g" README.md
-    rm README.md.bak
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/Project Name/$PROJECT_NAME/g" README.md
+        sed -i.bak "s/yourusername/$GITHUB_USERNAME/g" README.md
+        sed -i.bak "s/your-project-name/$PROJECT_NAME/g" README.md
+        sed -i.bak "s/your_package/$PACKAGE_NAME/g" README.md
+        rm README.md.bak
+    else
+        # Linux
+        sed -i "s/Project Name/$PROJECT_NAME/g" README.md
+        sed -i "s/yourusername/$GITHUB_USERNAME/g" README.md
+        sed -i "s/your-project-name/$PROJECT_NAME/g" README.md
+        sed -i "s/your_package/$PACKAGE_NAME/g" README.md
+    fi
 fi
 
 # Update LICENSE
 if [ -f "LICENSE" ]; then
     CURRENT_YEAR=$(date +%Y)
-    sed -i.bak "s/2025/$CURRENT_YEAR/g" LICENSE
-    sed -i.bak "s/Your Name/$AUTHOR_NAME/g" LICENSE
-    rm LICENSE.bak
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/2025/$CURRENT_YEAR/g" LICENSE
+        sed -i.bak "s/Your Name/$AUTHOR_NAME/g" LICENSE
+        rm LICENSE.bak
+    else
+        # Linux
+        sed -i "s/2025/$CURRENT_YEAR/g" LICENSE
+        sed -i "s/Your Name/$AUTHOR_NAME/g" LICENSE
+    fi
 fi
 
 # Update package __init__.py
 if [ -f "src/$PACKAGE_NAME/__init__.py" ]; then
-    sed -i.bak "s/Your Package/$PROJECT_NAME/g" "src/$PACKAGE_NAME/__init__.py"
-    sed -i.bak "s/Your Name/$AUTHOR_NAME/g" "src/$PACKAGE_NAME/__init__.py"
-    sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" "src/$PACKAGE_NAME/__init__.py"
-    rm "src/$PACKAGE_NAME/__init__.py.bak"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/Your Package/$PROJECT_NAME/g" "src/$PACKAGE_NAME/__init__.py"
+        sed -i.bak "s/Your Name/$AUTHOR_NAME/g" "src/$PACKAGE_NAME/__init__.py"
+        sed -i.bak "s/your.email@example.com/$AUTHOR_EMAIL/g" "src/$PACKAGE_NAME/__init__.py"
+        rm "src/$PACKAGE_NAME/__init__.py.bak"
+    else
+        # Linux
+        sed -i "s/Your Package/$PROJECT_NAME/g" "src/$PACKAGE_NAME/__init__.py"
+        sed -i "s/Your Name/$AUTHOR_NAME/g" "src/$PACKAGE_NAME/__init__.py"
+        sed -i "s/your.email@example.com/$AUTHOR_EMAIL/g" "src/$PACKAGE_NAME/__init__.py"
+    fi
 fi
 
 # Update test imports
 if [ -f "tests/test_main.py" ]; then
-    sed -i.bak "s/your_package/$PACKAGE_NAME/g" tests/test_main.py
-    rm tests/test_main.py.bak
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i.bak "s/your_package/$PACKAGE_NAME/g" tests/test_main.py
+        rm tests/test_main.py.bak
+    else
+        # Linux
+        sed -i "s/your_package/$PACKAGE_NAME/g" tests/test_main.py
+    fi
 fi
 
 echo -e "${GREEN}Project files customized successfully!${NC}"
